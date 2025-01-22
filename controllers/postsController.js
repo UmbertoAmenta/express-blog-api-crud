@@ -1,4 +1,7 @@
+const express = require("express")
+
 const postsData = require("../data/posts")
+const postRouter = require("../routers/posts")
 
 // index
 const index = (req, res) => res.json(postsData)
@@ -6,6 +9,7 @@ const index = (req, res) => res.json(postsData)
 // show
 const show = (req, res) => {
     const postSelected = postsData.find(elm => elm.id == req.params.id)
+    console.log(req.params.id)
     res.json(postSelected)
 }
 
@@ -24,7 +28,9 @@ const modify = (req, res) => {
 
 // delete
 const destroy = (req, res) => {
-    res.send(`Eliminazione della ricetta n° ${req.params.id}`)
+    const postSelected = postsData.find((elm) => elm.id == req.params.id)
+    postsData.splice(postsData.indexOf(postSelected), "1")
+    res.sendStatus(204)
 }
 
 module.exports = {index, show, store, update, modify, destroy}
