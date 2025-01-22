@@ -1,40 +1,24 @@
 const express = require("express")
-const postsData = require("../data/posts")
 const router = express.Router()
+const postsController = require("../controllers/postsController")
+const posts = require("../data/posts")
 
 // Index
-router.get("/", (req, res) => {
-    // res.send("Ricettario")
-    res.json(postsData)
-})
+router.get("/", postsController.index)
 
 // Show
-router.get("/:id", (req, res) => {
-    // res.send(`Ricetta: ${req.params.id}`)
-    const postSelected = postsData.find(function (elm) {
-        return elm.id == req.params.id
-    })
-    res.json(postSelected)
-})
+router.get("/:id", postsController.show)
 
 // Store
-router.post("/", (req, res) => {
-    res.send("Aggiunta di una nuova ricetta")
-})
+router.post("/", postsController.store)
 
 // Update
-router.put("/:id", (req, res) => {
-    res.send(`Modifica integrale della ricetta n° ${req.params.id}`)
-})
+router.put("/:id", postsController.update)
 
 // Modify
-router.patch("/:id", (req, res) => {
-    res.send(`Modifica parziale della ricetta n° ${req.params.id}`)
-})
+router.patch("/:id", postsController.modify)
 
 // Delete
-router.delete("/:id", (req, res) => {
-    res.send(`Eliminazione della ricetta n° ${req.params.id}`)
-})
+router.delete("/:id", postsController.destroy)
 
 module.exports = router
