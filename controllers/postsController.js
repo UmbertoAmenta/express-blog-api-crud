@@ -15,7 +15,7 @@ const show = (req, res) => {
 
 // store
 const store = (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
 
     // se ne occuperà il database
     const newId = postsData[postsData.length -1].id +1
@@ -29,12 +29,20 @@ const store = (req, res) => {
     }
 
     postsData.push(newPost)
-    res.send("Aggiunta di una nuova ricetta")
+    res.status(201).json(newPost)
 }
 
 // update
 const update = (req, res) => {
-    res.send(`Modifica integrale della ricetta n° ${req.params.id}`)
+    const postSelected = postsData.find((elm) => elm.id == req.params.id)
+
+    postSelected.titolo = req.body.titolo
+    postSelected.contenuto = req.body.contenuto
+    postSelected.immagine = req.body.immagine
+    postSelected.tags = req.body.tags    
+
+    // res.send(`Modifica integrale della ricetta n° ${req.params.id}`)
+    res.json(postSelected)
 }
 
 // modify
