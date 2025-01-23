@@ -4,7 +4,18 @@ const postsData = require("../data/posts")
 const postRouter = require("../routers/posts")
 
 // index
-const index = (req, res) => res.json(postsData)
+const index = (req, res) => {
+    let postsSelected = postsData
+    
+    const {tag} = req.query
+    if (tag) {
+        postsSelected = postsSelected.filter(post => {
+            return post.tags.includes(tag)
+        })
+    }
+
+    res.json(postsSelected)
+}
 
 // show
 const show = (req, res) => {
