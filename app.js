@@ -6,6 +6,8 @@ const postsData = require("./data/posts.js")
 const postsRouter = require("./routers/posts.js")
 
 app.use(express.static("pubblic"))
+app.use(express.json())
+
 app.use("/posts", postsRouter)
 
 // Server

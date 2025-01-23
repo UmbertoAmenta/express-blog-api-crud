@@ -1,4 +1,4 @@
-const express = require("express")
+// const express = require("express")
 
 const postsData = require("../data/posts")
 const postRouter = require("../routers/posts")
@@ -14,7 +14,23 @@ const show = (req, res) => {
 }
 
 // store
-const store = (req, res) => res.send("Aggiunta di una nuova ricetta")
+const store = (req, res) => {
+    console.log(req.body)
+
+    // se ne occuperà il database
+    const newId = postsData[postsData.length -1].id +1
+
+    const newPost = {
+        id: newId,
+        titolo: req.body.titolo,
+        contenuto: req.body.contenuto,
+        immagine: req.body.immagine,
+        tags: req.body.tags
+    }
+
+    postsData.push(newPost)
+    res.send("Aggiunta di una nuova ricetta")
+}
 
 // update
 const update = (req, res) => {
