@@ -20,7 +20,7 @@ const index = (req, res) => {
 // show
 const show = (req, res) => {
     const postSelected = postsData.find(elm => elm.id == req.params.id)
-    console.log(req.params.id)
+    
     res.json(postSelected)
 }
 
@@ -38,8 +38,8 @@ const store = (req, res) => {
         immagine: req.body.immagine,
         tags: req.body.tags
     }
-
     postsData.push(newPost)
+
     res.status(201).json(newPost)
 }
 
@@ -52,19 +52,26 @@ const update = (req, res) => {
     postSelected.immagine = req.body.immagine
     postSelected.tags = req.body.tags    
 
-    // res.send(`Modifica integrale della ricetta n° ${req.params.id}`)
     res.json(postSelected)
 }
 
 // modify
 const modify = (req, res) => {
-    res.send(`Modifica parziale della ricetta n° ${req.params.id}`)
+    const postSelected = postsData.find((elm) => elm.id == req.params.id)
+    postSelected.titolo = req.body.titolo || postSelected.titolo
+    postSelected.contenuto = req.body.contenuto || postSelected.contenuto
+    postSelected.immagine = req.body.immagine || postSelected.immagine
+    postSelected.tags = req.body.tags || postSelected.tags
+
+    // res.send(`Modifica parziale della ricetta n° ${req.params.id}`)
+    res.json(postSelected)
 }
 
 // delete
 const destroy = (req, res) => {
     const postSelected = postsData.find((elm) => elm.id == req.params.id)
     postsData.splice(postsData.indexOf(postSelected), "1")
+    
     res.sendStatus(204)
 }
 

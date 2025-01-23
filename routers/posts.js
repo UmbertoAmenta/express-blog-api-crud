@@ -1,7 +1,12 @@
 const express = require("express")
 const router = express.Router()
 const postsController = require("../controllers/postsController")
-const posts = require("../data/posts")
+const postsData = require("../data/posts")
+
+const mw_IsIdValid = require("../middlewares/idValidation")
+const mw_IsIdPresent = require("../middlewares/idNotFound")
+
+router.use("/:id", mw_IsIdValid, mw_IsIdPresent)
 
 // Index
 router.get("/", postsController.index)
