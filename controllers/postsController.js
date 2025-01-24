@@ -35,7 +35,7 @@ const store = (req, res) => {
         id: newId,
         titolo: req.body.titolo,
         contenuto: req.body.contenuto,
-        immagine: req.body.immagine,
+        immagine: req.body.immagine || "https://placehold.co/600x400",
         tags: req.body.tags
     }
     postsData.push(newPost)
